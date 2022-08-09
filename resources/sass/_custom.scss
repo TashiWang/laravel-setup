@@ -1,0 +1,213 @@
+// Custom style...
+
+.antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-sans {
+    font-family: Nunito, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/*
+ * Dropdown Menu Animation for Bootstrap Navbar
+ * https://startbootstrap.com/snippets/animated-navbar-dropdown
+ */
+
+// Change this breakpoint if you change the breakpoint of the navbar
+@media (min-width: 992px) {
+    .animate {
+        animation-duration: 0.3s;
+        -webkit-animation-duration: 0.3s;
+        animation-fill-mode: both;
+        -webkit-animation-fill-mode: both;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slideIn {
+    0% {
+        -webkit-transform: transform;
+        -webkit-opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        -webkit-opacity: 1;
+    }
+    0% {
+        -webkit-transform: translateY(1rem);
+        -webkit-opacity: 0;
+    }
+}
+
+.slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+}
+
+.bg-indigo {
+    background-color: #6574cd !important;
+}
+
+.h-5 {
+    height: 1.25rem !important;
+}
+
+.w-5 {
+    height: 1.25rem !important;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1250px;
+    }
+}
+
+.bg-light {
+    background: #f3f4f6 !important;
+}
+
+.card {
+    border-radius: 0.475rem;
+    border: 0;
+}
+
+.card-footer {
+    padding: 0.75rem 1.25rem;
+    background-color: #f9fafb;
+    border-top: 0;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 0.475rem 0.475rem;
+}
+
+.dropdown-menu {
+    width: 220px;
+}
+
+.small {
+    font-size: 0.875rem !important;
+}
+
+.navbar-custom {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+        90deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgb(5, 94, 167) 16%,
+        rgb(2, 128, 154) 100%
+    );
+}
+
+.main-sidebar {
+    background-color: #0066aa;
+}
+
+.logout-icon {
+    color: #ffffff;
+}
+
+.logout-icon:hover {
+    color: #ffffff;
+    transform: scale(1.5);
+}
+
+.footer-link {
+    color: #0455a1;
+}
+
+.main-sidebar .brand-text,
+.sidebar .nav-link p,
+i {
+    color: #ffffff;
+}
+
+.brand-text {
+    text-decoration-line: none;
+}
+
+.appended-icon {
+    color: #167dc1;
+}
+
+.action-btn {
+    background-color: transparent;
+    border: none;
+}
+
+.action-btn:hover {
+    transform: scale(1.5);
+}
+
+.table-head {
+    background-color: #0066aa;
+    color: #ffffff;
+}
+
+table.dataTable tbody td {
+    padding-bottom: 0.5%;
+}
+
+.modal-header {
+    background-color: #064663;
+    color: #ffffff;
+}
+
+.save-btn {
+    background-color: #064663;
+    color: #ffffff;
+}
+a {
+    text-decoration: none;
+}
+
+.save-btn:hover {
+    background-color: #064663;
+    color: #ffffff;
+    opacity: 90%;
+}
+
+.save-btn:focus {
+    background-color: #064663;
+    color: #ffffff;
+}
+
+.section-content {
+    padding: 2%;
+}
+
+.card-header-action {
+    color: #8a93a2;
+    text-decoration: none;
+}
+
+.card-header-action:hover {
+    color: #000000;
+}
+
+.brand-link {
+    text-decoration: none;
+}
