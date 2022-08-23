@@ -5,16 +5,24 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex">
-                            <span class="mt-1">Permission Management</span>
-                            <x-create-button href="/setting/permissions/create"> Create Permission</x-create-button>
+                            <span class="mt-1 table-header">Permission Management</span>
+                            @can('permission.refresh')
+                                <span class="ml-auto">
+                                    <form action="{{ route('permission.refresh') }}" method="POST">
+                                        @csrf
+                                        <x-reload-button type="submit">
+                                            Reload permissions</x-reload-button>
+                                    </form>
+                                </span>
+                            @endcan
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover" id="permissions-table" style="width:100%">
+                        <table class="table table-hover table-bordered" id="permissions-table" style="width:100%">
                             <thead class="table-head">
                                 <tr>
                                     <th>Name</th>
-                                    <th>Actions</th>
+                                    <th><i class="nav-icon fas fa-cogs"></i></th>
                                 </tr>
                             </thead>
                         </table>

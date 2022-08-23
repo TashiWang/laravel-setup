@@ -5,11 +5,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex">
-                            <span class="text-capitalize mt-1">Create Role</span>
-                            <x-back-button href="/roles">Back</x-back-button>
+                            <span class="text-capitalize mt-1 table-header">Create Role</span>
+                            <x-back-button href="{{ route('role.index') }}">Back</x-back-button>
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('roles.store') }}">
+                    <form method="POST" action="{{ route('role.store') }}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group row">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="text-white btn btn-primary float-right">Create
-                                User</button>
+                                Role</button>
                         </div>
                     </form>
                 </div>

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Contracts\Permission as PermissionContract;
 use Spatie\Permission\Exceptions\PermissionAlreadyExists;
@@ -21,7 +21,7 @@ class Permission extends Model implements PermissionContract
     protected $guarded = ['id'];
 
     protected $casts = [
-        'created_at' => 'datetime:d-M-Y'
+        'created_at' => 'datetime:d-M-Y',
     ];
 
     public function __construct(array $attributes = [])
@@ -90,7 +90,7 @@ class Permission extends Model implements PermissionContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
         $permission = static::getPermission(['name' => $name, 'guard_name' => $guardName]);
-        if (! $permission) {
+        if (!$permission) {
             throw PermissionDoesNotExist::create($name, $guardName);
         }
 
@@ -112,7 +112,7 @@ class Permission extends Model implements PermissionContract
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
         $permission = static::getPermission(['id' => $id, 'guard_name' => $guardName]);
 
-        if (! $permission) {
+        if (!$permission) {
             throw PermissionDoesNotExist::withId($id, $guardName);
         }
 
@@ -132,7 +132,7 @@ class Permission extends Model implements PermissionContract
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
         $permission = static::getPermission(['name' => $name, 'guard_name' => $guardName]);
 
-        if (! $permission) {
+        if (!$permission) {
             return static::query()->create(['name' => $name, 'guard_name' => $guardName]);
         }
 
@@ -164,5 +164,10 @@ class Permission extends Model implements PermissionContract
     protected static function getPermission(array $params = []): ?PermissionContract
     {
         return static::getPermissions($params, true)->first();
+    }
+
+    public function getNameAttribute($value)
+    {
+        return ucfirst(str_replace('.', ' » ', $value));
     }
 }

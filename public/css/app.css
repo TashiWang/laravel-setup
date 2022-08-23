@@ -76180,6 +76180,15 @@ a {
 .card-header-action {
   color: #8a93a2;
   text-decoration: none;
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-family: arial, sans-serif;
+  cursor: pointer;
+}
+
+.card-header-action span {
+  color: rgb(0, 114, 36);
 }
 
 .card-header-action:hover {
@@ -76188,5 +76197,36 @@ a {
 
 .brand-link {
   text-decoration: none;
+}
+
+.pagination > li > a {
+  background-color: white;
+  color: #0455a1;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+  color: #5a5a5a;
+  background-color: #eee;
+  border-color: #ddd;
+}
+
+.pagination > .active > a {
+  color: white;
+  background-color: #0455a1 !important;
+  border: solid 1px #0455a1 !important;
+}
+
+.pagination > li > a:hover {
+  color: #ffffff;
+  background-color: #064663 !important;
+  border: solid 1px #064663;
+}
+
+.pagination > .active > a:hover {
+  background-color: #064663 !important;
+  border: solid 1px #064663;
 }
 

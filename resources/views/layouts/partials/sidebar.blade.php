@@ -4,7 +4,8 @@
       <a href="/dashboard" class="brand-link">
           <img src="{{ asset('assets/img/logo.png') }}" alt="logo" class="brand-image img-circle elevation-3"
               style="opacity: 1">
-          <span class="brand-text font-weight-light">TashiCell</span>
+          <span class="brand-text font-weight-light">Tashi<span
+                  style="color: #e4771d; font-weight: 8 00; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Cell</span></span>
       </a>
 
       <!-- Sidebar -->
@@ -16,7 +17,7 @@
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                   <li class="nav-item">
-                      <a href="/dashboard" class="nav-link">
+                      <a href="{{ route('master') }}" class="nav-link">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Dashboard
@@ -49,9 +50,9 @@
                   </li>
                   <li class="nav-item">
                       <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-cogs"></i>
+                          <i class="nav-icon fas fa-user-shield"></i>
                           <p>
-                              System Settings
+                              Access
                               <i class="fas fa-angle-left right"></i>
                           </p>
                       </a>
@@ -61,7 +62,7 @@
                                   <a href="{{ route($item['route']) }}"
                                       class="nav-link {{ 'setting/' . $item['name'] == Request::segment(1) . '/' . Request::segment(2) ? 'active' : '' }}">
                                       <i class="nav-icon fas fa-minus"></i>
-                                      {{ $item['menu'] }}
+                                      <p>{{ $item['menu'] }}</p>
                                   </a>
                               </li>
                           @endforeach

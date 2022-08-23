@@ -23,33 +23,33 @@ class RoleAndPermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'create roles']);
-        Permission::create(['name' => 'read roles']);
-        Permission::create(['name' => 'update roles']);
-        Permission::create(['name' => 'delete roles']);
+            // Permission::create(['name' => 'role.create']);
+            // Permission::create(['name' => 'role.read']);
+            // Permission::create(['name' => 'role.update']);
+            // Permission::create(['name' => 'role.delete']);
 
-        Permission::create(['name' => 'create permissions']);
-        Permission::create(['name' => 'read permissions']);
-        Permission::create(['name' => 'update permissions']);
-        Permission::create(['name' => 'delete permissions']);
+            // Permission::create(['name' => 'permission.create']);
+            // Permission::create(['name' => 'permission.read']);
+            // Permission::create(['name' => 'permission.update']);
+            // Permission::create(['name' => 'permission.delete']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'developer']);
-        $role1->givePermissionTo([
-            'read roles',
-            'read permissions',
-        ]);
+        // $role1->givePermissionTo([
+        //     'role.read',
+        //     'permission.read',
+        // ]);
 
         $role2 = Role::create(['name' => 'admin']);
-        $role2->givePermissionTo([
-            'create roles',
-            'read roles',
-            'update roles',
-            'create permissions',
-            'read permissions',
-            'read permissions',
-            'update permissions',
-        ]);
+        // $role2->givePermissionTo([
+        //     'role.create',
+        //     'role.read',
+        //     'role.update',
+        //     'permission.create',
+        //     'permission.read',
+        //     'permission.read',
+        //     'permission.update',
+        // ]);
 
         $role3 = Role::create(['name' => 'super-admin']);
 

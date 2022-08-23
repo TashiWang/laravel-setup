@@ -5,8 +5,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex">
-                            <span class="text-capitalize mt-1">{{ $role->name }}</span>
-                            <x-back-button href="/setting/roles">Back</x-back-button>
+                            <span class="text-capitalize mt-1 table-header">{{ $role->name }}</span>
+                            <x-back-button href="{{ route('role.index') }}">Back</x-back-button>
                         </div>
                     </div>
 
@@ -39,11 +39,10 @@
                                     </table>
                                 </div>
                             @empty
-                                <i class="text-danger">There are no permissions in the system. You need to create
-                                    some.</i>
-                                &nbsp;&nbsp;&nbsp;
-                                <a href="{{ route('permissions.index') }}" class="btn btn-primary btn-xs">Create
-                                    Permission</a>
+                                <div class="d-flex">
+                                    <i class="text-danger">There are no permissions in the system. Click
+                                    <a href="{{ route('permission.index') }}">Here</a> to refresh permissions.
+                                </div>
                             @endforelse
                         </div>
                     </div>

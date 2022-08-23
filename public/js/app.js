@@ -41690,9 +41690,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./common */ "./resources/js/common.js");
 
+__webpack_require__(/*! ./custom/permissions */ "./resources/js/custom/permissions.js");
+
 __webpack_require__(/*! ./custom/roles */ "./resources/js/custom/roles.js");
 
-__webpack_require__(/*! ./custom/permissions */ "./resources/js/custom/permissions.js");
+__webpack_require__(/*! ./custom/users */ "./resources/js/custom/users.js");
 
 
 /**
@@ -41796,6 +41798,7 @@ $(function () {
   $('#permissions-table').DataTable({
     processing: true,
     serverSide: true,
+    aLengthMenu: [[10, 30, 100, -1], [10, 30, 100, "All"]],
     language: {
       search: "",
       searchPlaceholder: "Search records",
@@ -41805,10 +41808,12 @@ $(function () {
         next: "Next »"
       }
     },
-    ajax: 'http://127.0.0.1:8000/setting/permissions',
+    ajax: 'http://127.0.0.1:8000/setting/permission',
     columns: [{
       data: 'name',
-      name: 'name'
+      render: function render(data) {
+        return data.replace('.', ' » ');
+      }
     }, {
       data: 'action',
       name: 'action',
@@ -41843,7 +41848,7 @@ $(document).on('click', ".delete-btn", function (e) {
           location.reload();
           Toast.fire({
             icon: "success",
-            title: "Office has been deleted successfully!"
+            title: "Permission has been deleted successfully!"
           });
         }
       });
@@ -41865,6 +41870,7 @@ $(function () {
   $('#roles-table').DataTable({
     processing: true,
     serverSide: true,
+    aLengthMenu: [[10, 30, 100, -1], [10, 30, 100, "All"]],
     language: {
       search: "",
       searchPlaceholder: "Search records",
@@ -41874,13 +41880,104 @@ $(function () {
         next: "Next »"
       }
     },
-    ajax: 'http://127.0.0.1:8000/setting/roles',
+    ajax: 'http://127.0.0.1:8000/setting/role',
+    columns: [{
+      data: 'name',
+      render: function render(data) {
+        return capitalizeFirstLetter(data);
+      }
+    }, {
+      data: 'userCount',
+      name: 'userCount'
+    }, {
+      data: 'action',
+      name: 'action',
+      orderable: false,
+      searchable: false
+    }]
+  });
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+});
+$(document).on('click', ".delete-btn", function (e) {
+  e.preventDefault();
+  var id = $(this).attr('id');
+  var url = $(this).attr('href');
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(function (result) {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        dataType: 'JSON',
+        data: {
+          "id": id,
+          "_token": $("meta[name='csrf-token']").attr("content")
+        },
+        success: function success() {
+          location.reload();
+          Toast.fire({
+            icon: "success",
+            title: "Role has been deleted successfully!"
+          });
+        }
+      });
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/custom/users.js":
+/*!**************************************!*\
+  !*** ./resources/js/custom/users.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+$(function () {
+  $('#users-table').DataTable({
+    processing: true,
+    aLengthMenu: [[10, 30, 100, -1], [10, 30, 100, "All"]],
+    serverSide: true,
+    language: {
+      search: "",
+      searchPlaceholder: "Search records",
+      lengthMenu: "Show _MENU_ entries",
+      paginate: {
+        previous: "« Previous",
+        next: "Next »"
+      }
+    },
+    ajax: 'http://127.0.0.1:8000/setting/user',
     columns: [{
       data: 'name',
       name: 'name'
     }, {
-      data: 'userCount',
-      name: 'userCount'
+      data: 'email',
+      name: 'email'
+    }, {
+      data: 'role',
+      render: function render(data) {
+        if (data == null) {
+          return '<a href="' + data + '"></a>';
+        } else {
+          return '<span class="badge badge-pill badge-info">' + data + '</span>'; // '<a href="' + data + '">' + data + '</a>'
+        }
+      }
+    }, {
+      data: 'created_at',
+      name: 'created_at'
     }, {
       data: 'action',
       name: 'action',
@@ -41915,7 +42012,7 @@ $(document).on('click', ".delete-btn", function (e) {
           location.reload();
           Toast.fire({
             icon: "success",
-            title: "Office has been deleted successfully!"
+            title: "User has been deleted successfully!"
           });
         }
       });

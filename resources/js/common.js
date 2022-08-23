@@ -22,5 +22,3 @@ window.Toast = Swal.mixin({
 
 
 
-
-

@@ -1,10 +1,10 @@
 window._ = require('lodash');
 
 $(function () {
-    $('#permissions-table').DataTable({
+    $('#users-table').DataTable({
         processing: true,
-        serverSide: true,
         aLengthMenu: [[10, 30, 100, -1], [10, 30, 100, "All"]],
+        serverSide: true,
         language: {
             search: "",
             searchPlaceholder: "Search records",
@@ -14,13 +14,33 @@ $(function () {
                 next: "Next »",
             },
         },
-        ajax: 'http://127.0.0.1:8000/setting/permission',
+        ajax: 'http://127.0.0.1:8000/setting/user',
         columns: [
             {
                 data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'role',
+
                 render: function (data) {
-                    return data.replace('.', ' » ')
+                    if (data == null) {
+                        return '<a href="' + data + '"></a>'
+                    }
+                    else {
+                        return '<span class="badge badge-pill badge-info">' + data + '</span>'
+                        // '<a href="' + data + '">' + data + '</a>'
+
+                    }
                 },
+            },
+            {
+                data: 'created_at',
+                name: 'created_at'
             },
             {
                 data: 'action',
@@ -28,8 +48,7 @@ $(function () {
                 orderable: false,
                 searchable: false
             }
-
-        ]
+        ],
     });
 });
 
@@ -59,7 +78,7 @@ $(document).on('click', ".delete-btn", function (e) {
                     location.reload();
                     Toast.fire({
                         icon: "success",
-                        title: "Permission has been deleted successfully!",
+                        title: "User has been deleted successfully!",
                     });
                 }
             });

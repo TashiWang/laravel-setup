@@ -4,6 +4,7 @@ $(function () {
     $('#roles-table').DataTable({
         processing: true,
         serverSide: true,
+        aLengthMenu: [[10, 30, 100, -1], [10, 30, 100, "All"]],
         language: {
             search: "",
             searchPlaceholder: "Search records",
@@ -13,11 +14,13 @@ $(function () {
                 next: "Next »",
             },
         },
-        ajax: 'http://127.0.0.1:8000/setting/roles',
+        ajax: 'http://127.0.0.1:8000/setting/role',
         columns: [
             {
                 data: 'name',
-                name: 'name'
+                render: function (data) {
+                    return capitalizeFirstLetter(data)
+                },
             },
             {
                 data: 'userCount',
@@ -32,6 +35,11 @@ $(function () {
 
         ]
     });
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
 });
 
 $(document).on('click', ".delete-btn", function (e) {
@@ -60,7 +68,7 @@ $(document).on('click', ".delete-btn", function (e) {
                     location.reload();
                     Toast.fire({
                         icon: "success",
-                        title: "Office has been deleted successfully!",
+                        title: "Role has been deleted successfully!",
                     });
                 }
             });

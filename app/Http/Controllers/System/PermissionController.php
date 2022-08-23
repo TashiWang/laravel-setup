@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use DB;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Yajra\Datatables\Datatables;
 
 class PermissionController extends Controller
 {
     public function __construct()
-    {}
+    {
+        $this->middleware('permission:permission.refresh')->only('refresh');
+        $this->middleware('permission:permission.view')->only('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,89 +24,23 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $permissions = DB::table('permissions as T1')->select('T1.id', 'T1.name')->get();
+            $permissions = DB::select("SELECT T1.id as id, T1.name as name FROM permissions T1");
 
             return Datatables::of($permissions)->addColumn('action', function ($permission) {
-                return '<a href="permissions/' . $permission->id . '/edit" class="text-uppercase action-btn" id="edit-btn"><i class="fa-solid fa-pen-to-square text-info"></i></a>
-                        <a href="permissions/' . $permission->id . '" class="text-uppercase action-btn ml-2" id="delete-btn"><i class="fas fa-eye text-primary"></i></i></a>
-                        <a href="' . url('http://127.0.0.1:8000/permissions/') . $permission->id . '" class="text-uppercase action-btn ml-2 delete-btn" id="' . $permission->id . '" data-token="{{ csrf_token() }}"><i class="fa-solid fa-trash text-danger"></i></a>
+                return '<a href="permission/' . $permission->id . '" class="text-uppercase action-btn ml-2" id="delete-btn"><i class="fas fa-eye text-primary"></i></i></a>
                        ';
             })->make();
         }
 
-        // dd(DB::table('permissions as T1')->select('T1.id', 'T1.name')->get());
-
+        $permissions = DB::table('permissions as T1')->select('T1.id', 'T1.name as name')->get();
         return view('system.permissions.index');
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Regenerate the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
-    {
-        $permission->delete();
-        return response()->json(['status' => '200']);
-    }
-
-
     public function refresh(Request $request)
     {
         //get the permissions from all routes through their middleware
@@ -128,17 +66,17 @@ class PermissionController extends Controller
             }
         }
         //add these permissions to the database if they do not already exist
-        if (!empty($permissions)){
+        if (!empty($permissions)) {
             foreach ($permissions as $permission) {
                 Permission::updateOrCreate([
-                    'name' => $permission
+                    'name' => $permission,
                 ], [
-                    'name' => $permission
+                    'name' => $permission,
                 ]);
             }
         }
         //delete existing permissions in the database that are not found from routes
         Permission::whereNotIn('name', $permissions)->delete();
-        return redirect()->route('permission.index')->with('msg_success', 'The permissions table has been regenerated.');
+        return redirect()->route('permission.index')->with('success_msg', 'The permissions table has been regenerated.');
     }
 }

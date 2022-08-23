@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\System\PermissionController;
 use App\Http\Controllers\System\RoleController;
+use App\Http\Controllers\System\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +20,12 @@ require __DIR__ . '/console.php';
 
 Route::middleware(['verified', 'web'])->group(function () {
     Route::view('/dashboard', 'layouts.master')->middleware(['auth'])->name('master');
-    
+
     //system settings
     Route::prefix('setting')->group(function () {
-        Route::resource('roles', RoleController::class);
-        Route::resource('permissions', PermissionController::class);
-        Route::post('permissions', [PermissionController::class, 'refresh'])->name('permissions.refresh');
+        Route::get('permission', [PermissionController::class, 'index'])->name('permission.index');
+        Route::post('permission', [PermissionController::class, 'refresh'])->name('permission.refresh');
+        Route::resource('role', RoleController::class);
+        Route::resource('user', UserController::class);
     });
 });

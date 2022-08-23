@@ -1,8 +1,9 @@
 window._ = require('lodash');
 require('./bootstrap');
 require('./common');
-require('./custom/roles');
 require('./custom/permissions');
+require('./custom/roles');
+require('./custom/users');
 
 import Alpine from 'alpinejs';
 
